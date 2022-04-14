@@ -1,9 +1,28 @@
-<button *ngIf="isViewMode()" (click)="onEnterCreateMode()">Create</button>
-<div *ngIf="!isViewMode()">
-  <input type="text" [formControl]="developerName" />
-  <button (click)="onSave()">{{ isCreateMode() ? "Create" : "Update" }}</button>
+<h3 class="mb-3">Developers</h3>
+<button
+  *ngIf="isViewMode()"
+  (click)="onEnterCreateMode()"
+  class="btn btn-primary"
+>
+  Add New Developer
+</button>
+<div *ngIf="!isViewMode()" class="row">
+  <div class="col-md-4">
+    <label for="developerName">Name: </label>
+    <input
+      id="developerName"
+      type="text"
+      [formControl]="developerName"
+      class="form-control"
+    />
+  </div>
+  <div class="col-md-4 save-btn-mt">
+    <button (click)="onSave()" class="btn btn-primary">
+      {{ isCreateMode() ? "Create" : "Update" }}
+    </button>
+  </div>
 </div>
-<div>
+<div class="mt-3">
   <table class="table">
     <thead>
       <tr>
@@ -15,9 +34,25 @@
       <tr *ngFor="let developer of developers">
         <td>{{ developer.id }}</td>
         <td>{{ developer.name }}</td>
-        <td><button (click)="onEnterUpdateMode(developer)">Edit</button></td>
-        <td><button (click)="onDelete(developer.id)">Delete</button></td>
+        <td>
+          <button
+            (click)="onEnterUpdateMode(developer)"
+            class="btn btn-sm btn-info"
+          >
+            Edit
+          </button>
+        </td>
+        <td>
+          <button
+            (click)="onDelete(developer.id)"
+            class="btn btn-sm btn-danger"
+          >
+            Delete
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <div class="text-center no-dev-msg">No developers found</div>
 </div>
