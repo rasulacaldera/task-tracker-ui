@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { DeveloperService } from 'src/services/developer.service';
 
 @Component({
@@ -9,6 +10,8 @@ import { DeveloperService } from 'src/services/developer.service';
 export class DeveloperComponent implements OnInit {
 
   developers: any = [];
+  developerName = new FormControl('');
+
 
   constructor(private developerService: DeveloperService) { }
 
@@ -19,6 +22,12 @@ export class DeveloperComponent implements OnInit {
   loadAllDevelopers() {
     this.developerService.getAllDevelopers().subscribe(res => {
       this.developers = res
+    })
+  }
+
+  onSave() {
+    this.developerService.createDeveloper({ name: this.developerName.value }).subscribe(res => {
+      this.loadAllDevelopers();
     })
   }
 }

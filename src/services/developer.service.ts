@@ -14,4 +14,8 @@ export class DeveloperService {
   getAllDevelopers() {
     return this.http.get(this.DEVELOPER_SERVICE);
   }
+
+  createDeveloper(developer: any) {
+    return this.http.post(this.DEVELOPER_SERVICE, developer);
+  }
 }
