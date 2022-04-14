@@ -24,7 +24,6 @@ export class StoryComponent implements OnInit {
     estimation: new FormControl(''),
     status: new FormControl('')
   });
-  storyId: any = undefined;
 
   constructor(private storyService: StoryService,
     private developerService: DeveloperService,
@@ -44,7 +43,9 @@ export class StoryComponent implements OnInit {
   }
 
   onEnterUpdateMode(story: any) {
-
+    this.storyForm.reset();
+    this.mode = PageMode.UPDATE;
+    this.storyForm.setValue(this.proccessAndGetStoryForUpdate(story));
   }
 
   onDelete(id: any) {
@@ -69,6 +70,14 @@ export class StoryComponent implements OnInit {
       }, err => {
         this.notificationService.showError(err.error.message)
       })
+    } else {
+      let story = Utils.removeEmptyStrings(this.storyForm.value);
+      this.storyService.updateStory(story.id, story).subscribe(res => {
+        this.notificationService.showSuccess("Successfully updated Story");
+        this.refreshAfterSave();
+      }, err => {
+        this.notificationService.showError(err.error.message)
+      })
     }
   }
 
@@ -89,12 +98,23 @@ export class StoryComponent implements OnInit {
   refreshAfterSave() {
     this.loadAllDevelopers();
     this.loadStories();
-    this.storyId = undefined;
     this.storyForm.reset();
     this.mode = PageMode.VIEW
   }
 
   saveBtnEnabled() {
     return this.storyForm.dirty;
+  }
+
+  proccessAndGetStoryForUpdate(story: any) {
+    return {
+      id: story.id,
+      title: story.title,
+      description: story.description,
+      estimation: story.estimation,
+      status: story.status,
+      assignedDeveloperId: story.assignedDeveloper ? story.assignedDeveloper.id : null
+    }
+
   }
 }
