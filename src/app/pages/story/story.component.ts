@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { PageMode } from 'src/constants/page-mode';
+import { DeveloperService } from 'src/services/developer.service';
 import { NotificationService } from 'src/services/notification.service';
 import { StoryService } from 'src/services/story.service';
+import Utils from 'src/utils/Utils';
 
 @Component({
   selector: 'app-story',
@@ -10,8 +14,20 @@ import { StoryService } from 'src/services/story.service';
 export class StoryComponent implements OnInit {
 
   stories: any = [];
+  developers: any = [];
+  mode: PageMode = PageMode.VIEW;
+  storyForm = new FormGroup({
+    id: new FormControl(''),
+    title: new FormControl(''),
+    description: new FormControl(''),
+    assignedDeveloperId: new FormControl(''),
+    estimation: new FormControl(''),
+    status: new FormControl('')
+  });
+  storyId: any = undefined;
 
   constructor(private storyService: StoryService,
+    private developerService: DeveloperService,
     private notificationService: NotificationService) { }
 
   ngOnInit(): void {
@@ -24,6 +40,7 @@ export class StoryComponent implements OnInit {
     }, err => {
       this.notificationService.showError(err.error.message)
     })
+    this.loadAllDevelopers()
   }
 
   onEnterUpdateMode(story: any) {
@@ -37,5 +54,43 @@ export class StoryComponent implements OnInit {
     }, err => {
       this.notificationService.showError(err.error.message)
     })
+  }
+
+  onEnterCreateMode() {
+    this.mode = PageMode.CREATE;
+  }
+
+  onSave() {
+    if (this.isCreateMode()) {
+      let story = Utils.removeEmptyStrings(this.storyForm.value);
+      this.storyService.createStory(story).subscribe(res => {
+        this.notificationService.showSuccess("Successfully created Story");
+        this.refreshAfterSave();
+      }, err => {
+        this.notificationService.showError(err.error.message)
+      })
+    }
+  }
+
+  isViewMode(): boolean {
+    return this.mode == PageMode.VIEW
+  }
+
+  isCreateMode(): boolean {
+    return this.mode == PageMode.CREATE
+  }
+
+  loadAllDevelopers() {
+    this.developerService.getAllDevelopers().subscribe(res => {
+      this.developers = res
+    })
+  }
+
+  refreshAfterSave() {
+    this.loadAllDevelopers();
+    this.loadStories();
+    this.storyId = undefined;
+    this.storyForm.reset();
+    this.mode = PageMode.VIEW
   }
 }
