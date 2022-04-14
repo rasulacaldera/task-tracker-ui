@@ -19,6 +19,10 @@ export class DeveloperService {
     return this.http.post(this.DEVELOPER_SERVICE, developer);
   }
 
+  updateDeveloper(id: any, developer: any) {
+    return this.http.put(this.DEVELOPER_SERVICE + "/" + id, developer);
+  }
+
   deleteDeveloper(id: any) {
     return this.http.delete(this.DEVELOPER_SERVICE + "/" + id);
   }
