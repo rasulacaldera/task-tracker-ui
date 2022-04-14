@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { PageMode } from 'src/constants/page-mode';
+import { BugService } from 'src/services/bug.service';
 import { DeveloperService } from 'src/services/developer.service';
 import { NotificationService } from 'src/services/notification.service';
 import { StoryService } from 'src/services/story.service';
@@ -13,19 +14,19 @@ import Utils from 'src/utils/Utils';
 })
 export class BugComponent implements OnInit {
 
-  stories: any = [];
+  bugs: any = [];
   developers: any = [];
   mode: PageMode = PageMode.VIEW;
-  storyForm = new FormGroup({
+  bugForm = new FormGroup({
     id: new FormControl(''),
     title: new FormControl(''),
     description: new FormControl(''),
     assignedDeveloperId: new FormControl(''),
-    estimation: new FormControl(''),
+    priority: new FormControl(''),
     status: new FormControl('')
   });
 
-  constructor(private storyService: StoryService,
+  constructor(private bugService: BugService,
     private developerService: DeveloperService,
     private notificationService: NotificationService) { }
 
@@ -34,8 +35,8 @@ export class BugComponent implements OnInit {
   }
 
   loadStories() {
-    this.storyService.getAllStories().subscribe(res => {
-      this.stories = res;
+    this.bugService.getAllBugs().subscribe(res => {
+      this.bugs = res;
     }, err => {
       this.notificationService.showError(err.error.message)
     })
@@ -43,14 +44,14 @@ export class BugComponent implements OnInit {
   }
 
   onEnterUpdateMode(story: any) {
-    this.storyForm.reset();
+    this.bugForm.reset();
     this.mode = PageMode.UPDATE;
-    this.storyForm.setValue(this.proccessAndGetStoryForUpdate(story));
+    this.bugForm.setValue(this.proccessAndGetBugForUpdate(story));
   }
 
   onDelete(id: any) {
-    this.storyService.deleteStory(id).subscribe(res => {
-      this.notificationService.showSuccess("Successfully deleted Story");
+    this.bugService.deleteBug(id).subscribe(res => {
+      this.notificationService.showSuccess("Successfully deleted Bug");
       this.loadStories();
     }, err => {
       this.notificationService.showError(err.error.message)
@@ -63,17 +64,17 @@ export class BugComponent implements OnInit {
 
   onSave() {
     if (this.isCreateMode()) {
-      let story = Utils.removeEmptyStrings(this.storyForm.value);
-      this.storyService.createStory(story).subscribe(res => {
-        this.notificationService.showSuccess("Successfully created Story");
+      let story = Utils.removeEmptyStrings(this.bugForm.value);
+      this.bugService.createBug(story).subscribe(res => {
+        this.notificationService.showSuccess("Successfully created Bug");
         this.refreshAfterSave();
       }, err => {
         this.notificationService.showError(err.error.message)
       })
     } else {
-      let story = Utils.removeEmptyStrings(this.storyForm.value);
-      this.storyService.updateStory(story.id, story).subscribe(res => {
-        this.notificationService.showSuccess("Successfully updated Story");
+      let story = Utils.removeEmptyStrings(this.bugForm.value);
+      this.bugService.updateBug(story.id, story).subscribe(res => {
+        this.notificationService.showSuccess("Successfully updated Bug");
         this.refreshAfterSave();
       }, err => {
         this.notificationService.showError(err.error.message)
@@ -98,21 +99,21 @@ export class BugComponent implements OnInit {
   refreshAfterSave() {
     this.loadAllDevelopers();
     this.loadStories();
-    this.storyForm.reset();
+    this.bugForm.reset();
     this.mode = PageMode.VIEW
   }
 
   saveBtnEnabled() {
-    return this.storyForm.dirty;
+    return this.bugForm.dirty;
   }
 
-  proccessAndGetStoryForUpdate(story: any) {
+  proccessAndGetBugForUpdate(story: any) {
     return {
       id: story.id,
       title: story.title,
       description: story.description,
-      estimation: story.estimation,
       status: story.status,
+      priority: story.priority,
       assignedDeveloperId: story.assignedDeveloper ? story.assignedDeveloper.id : null
     }
   }

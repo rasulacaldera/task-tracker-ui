@@ -1,6 +1,6 @@
 <button *ngIf="isViewMode()" (click)="onEnterCreateMode()">Create</button>
 <div *ngIf="!isViewMode()">
-  <form [formGroup]="storyForm">
+  <form [formGroup]="bugForm">
     <label for="title">Title: </label>
     <input id="title" type="text" formControlName="title" />
 
@@ -14,14 +14,18 @@
       </option>
     </select>
 
-    <label for="estimation">Estimation: </label>
-    <input id="estimation" type="number" formControlName="estimation" />
+    <label for="priority">Priority: </label>
+    <select id="priority" formControlName="priority">
+      <option [ngValue]="'CRITICAL'">CRITICAL</option>
+      <option [ngValue]="'MAJOR'">MAJOR</option>
+      <option [ngValue]="'MINOR'">MINOR</option>
+    </select>
 
     <label for="status" *ngIf="!isCreateMode()">Status: </label>
     <select id="status" *ngIf="!isCreateMode()" formControlName="status">
       <option [ngValue]="'NEW'">NEW</option>
-      <option [ngValue]="'ESTIMATED'">ESTIMATED</option>
-      <option [ngValue]="'COMPLETED'">COMPLETED</option>
+      <option [ngValue]="'VERIFIED'">VERIFIED</option>
+      <option [ngValue]="'RESOLVED'">RESOLVED</option>
     </select>
   </form>
   <button [disabled]="!saveBtnEnabled()" (click)="onSave()">
@@ -35,24 +39,22 @@
       <th scope="col">Title</th>
       <th scope="col">Description</th>
       <th scope="col">Assiged Developer</th>
-      <th scope="col">Estimation</th>
+      <th scope="col">Priority</th>
       <th scope="col">Status</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let story of stories">
-      <td>{{ story.id }}</td>
-      <td>{{ story.title }}</td>
-      <td>{{ story.description }}</td>
+    <tr *ngFor="let bug of bugs">
+      <td>{{ bug.id }}</td>
+      <td>{{ bug.title }}</td>
+      <td>{{ bug.description }}</td>
       <td>
-        {{
-          story.assignedDeveloper ? story.assignedDeveloper.name : "Unassigned"
-        }}
+        {{ bug.assignedDeveloper ? bug.assignedDeveloper.name : "Unassigned" }}
       </td>
-      <td>{{ story.estimation }}</td>
-      <td>{{ story.status }}</td>
-      <td><button (click)="onEnterUpdateMode(story)">Edit</button></td>
-      <td><button (click)="onDelete(story.id)">Delete</button></td>
+      <td>{{ bug.priority }}</td>
+      <td>{{ bug.status }}</td>
+      <td><button (click)="onEnterUpdateMode(bug)">Edit</button></td>
+      <td><button (click)="onDelete(bug.id)">Delete</button></td>
     </tr>
   </tbody>
 </table>
