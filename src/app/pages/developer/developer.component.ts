@@ -12,7 +12,7 @@ export class DeveloperComponent implements OnInit {
 
   developers: any = [];
   developerName = new FormControl('');
-  mode: PageMode = PageMode.CREATE
+  mode: PageMode = PageMode.VIEW
   developerId: any = undefined;
 
   constructor(private developerService: DeveloperService) { }
@@ -39,7 +39,11 @@ export class DeveloperComponent implements OnInit {
     }
   }
 
-  onEnterUpdate(developer: any) {
+  onEnterCreateMode() {
+    this.mode = PageMode.CREATE
+  }
+
+  onEnterUpdateMode(developer: any) {
     this.mode = PageMode.UPDATE
     this.developerId = developer.id;
     this.developerName.setValue(developer.name);
@@ -51,6 +55,10 @@ export class DeveloperComponent implements OnInit {
     })
   }
 
+  isViewMode(): boolean {
+    return this.mode == PageMode.VIEW
+  }
+
   isCreateMode(): boolean {
     return this.mode == PageMode.CREATE
   }
@@ -59,6 +67,6 @@ export class DeveloperComponent implements OnInit {
     this.loadAllDevelopers();
     this.developerId = undefined;
     this.developerName.setValue(undefined);
-    this.mode = PageMode.CREATE
+    this.mode = PageMode.VIEW
   }
 }
