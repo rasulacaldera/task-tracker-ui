@@ -7,11 +7,11 @@ import { StoryService } from 'src/services/story.service';
 import Utils from 'src/utils/Utils';
 
 @Component({
-  selector: 'app-story',
-  templateUrl: './story.component.html',
-  styleUrls: ['./story.component.scss']
+  selector: 'app-bug',
+  templateUrl: './bug.component.html',
+  styleUrls: ['./bug.component.scss']
 })
-export class StoryComponent implements OnInit {
+export class BugComponent implements OnInit {
 
   stories: any = [];
   developers: any = [];
@@ -116,4 +116,5 @@ export class StoryComponent implements OnInit {
       assignedDeveloperId: story.assignedDeveloper ? story.assignedDeveloper.id : null
     }
   }
+
 }

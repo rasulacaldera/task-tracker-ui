@@ -6,13 +6,15 @@ import { HomeComponent } from './home/home.component';
 import { DeveloperComponent } from './developer/developer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoryComponent } from './story/story.component';
+import { BugComponent } from './bug/bug.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     DeveloperComponent,
-    StoryComponent
+    StoryComponent,
+    BugComponent
   ],
   imports: [
     CommonModule,
