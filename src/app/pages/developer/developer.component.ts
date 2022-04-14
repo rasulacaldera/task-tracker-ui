@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DeveloperService } from 'src/services/developer.service';
 import { PageMode } from 'src/constants/page-mode';
+import { NotificationService } from 'src/services/notification.service';
 
 @Component({
   selector: 'app-developer',
@@ -15,7 +16,8 @@ export class DeveloperComponent implements OnInit {
   mode: PageMode = PageMode.VIEW
   developerId: any = undefined;
 
-  constructor(private developerService: DeveloperService) { }
+  constructor(private developerService: DeveloperService,
+    private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.loadAllDevelopers();
@@ -30,11 +32,16 @@ export class DeveloperComponent implements OnInit {
   onSave() {
     if (this.isCreateMode()) {
       this.developerService.createDeveloper({ name: this.developerName.value }).subscribe(res => {
+        this.notificationService.showSuccess("Successfully created Developer");
         this.refreshAfterSave();
+      }, err => {
+        this.notificationService.showError(err.error.message)
       })
     } else {
       this.developerService.updateDeveloper(this.developerId, { name: this.developerName.value }).subscribe(res => {
         this.refreshAfterSave();
+      }, err => {
+        this.notificationService.showError(err.error.message)
       })
     }
   }
@@ -52,6 +59,8 @@ export class DeveloperComponent implements OnInit {
   onDelete(id: any) {
     this.developerService.deleteDeveloper(id).subscribe(res => {
       this.loadAllDevelopers();
+    }, err => {
+      this.notificationService.showError(err.error.message)
     })
   }
 
