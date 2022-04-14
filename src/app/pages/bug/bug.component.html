@@ -1,36 +1,74 @@
-<button *ngIf="isViewMode()" (click)="onEnterCreateMode()">Create</button>
+<h3 class="mb-3">Bug</h3>
+<button
+  *ngIf="isViewMode()"
+  (click)="onEnterCreateMode()"
+  class="btn btn-primary"
+>
+  Add New Bug
+</button>
 <div *ngIf="!isViewMode()">
-  <form [formGroup]="bugForm">
-    <label for="title">Title: </label>
-    <input id="title" type="text" formControlName="title" />
+  <form [formGroup]="bugForm" class="row">
+    <div class="col-md-4">
+      <label for="title">Title: </label>
+      <input
+        id="title"
+        type="text"
+        formControlName="title"
+        class="form-control"
+      />
+    </div>
 
-    <label for="description">Description: </label>
-    <input id="description" type="text" formControlName="description" />
+    <div class="col-md-5">
+      <label for="description">Description: </label>
+      <input
+        id="description"
+        type="text"
+        formControlName="description"
+        class="form-control"
+      />
+    </div>
 
-    <label for="assignedDeveloperId">Assigned Developer: </label>
-    <select id="assignedDeveloperId" formControlName="assignedDeveloperId">
-      <option *ngFor="let developer of developers" [ngValue]="developer.id">
-        {{ developer.name }}
-      </option>
-    </select>
+    <div class="col-md-3">
+      <label for="assignedDeveloperId">Assigned Developer: </label>
+      <select
+        id="assignedDeveloperId"
+        formControlName="assignedDeveloperId"
+        class="form-control"
+      >
+        <option *ngFor="let developer of developers" [ngValue]="developer.id">
+          {{ developer.name }}
+        </option>
+      </select>
+    </div>
 
-    <label for="priority">Priority: </label>
-    <select id="priority" formControlName="priority">
-      <option [ngValue]="'CRITICAL'">CRITICAL</option>
-      <option [ngValue]="'MAJOR'">MAJOR</option>
-      <option [ngValue]="'MINOR'">MINOR</option>
-    </select>
+    <div class="col-md-2">
+      <label for="priority">Priority: </label>
+      <select id="priority" formControlName="priority" class="form-control">
+        <option [ngValue]="'CRITICAL'">CRITICAL</option>
+        <option [ngValue]="'MAJOR'">MAJOR</option>
+        <option [ngValue]="'MINOR'">MINOR</option>
+      </select>
+    </div>
 
-    <label for="status" *ngIf="!isCreateMode()">Status: </label>
-    <select id="status" *ngIf="!isCreateMode()" formControlName="status">
-      <option [ngValue]="'NEW'">NEW</option>
-      <option [ngValue]="'VERIFIED'">VERIFIED</option>
-      <option [ngValue]="'RESOLVED'">RESOLVED</option>
-    </select>
+    <div class="col-md-2" *ngIf="!isCreateMode()">
+      <label for="status">Status: </label>
+      <select id="status" formControlName="status" class="form-control">
+        <option [ngValue]="'NEW'">NEW</option>
+        <option [ngValue]="'VERIFIED'">VERIFIED</option>
+        <option [ngValue]="'RESOLVED'">RESOLVED</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <button
+        [disabled]="!saveBtnEnabled()"
+        (click)="onSave()"
+        class="btn btn-primary save-btn-mt"
+      >
+        {{ isCreateMode() ? "Create" : "Update" }}
+      </button>
+    </div>
   </form>
-  <button [disabled]="!saveBtnEnabled()" (click)="onSave()">
-    {{ isCreateMode() ? "Create" : "Update" }}
-  </button>
 </div>
 <table class="table">
   <thead>
@@ -53,8 +91,16 @@
       </td>
       <td>{{ bug.priority }}</td>
       <td>{{ bug.status }}</td>
-      <td><button (click)="onEnterUpdateMode(bug)">Edit</button></td>
-      <td><button (click)="onDelete(bug.id)">Delete</button></td>
+      <td>
+        <button (click)="onEnterUpdateMode(bug)" class="btn btn-sm btn-info">
+          Edit
+        </button>
+      </td>
+      <td>
+        <button (click)="onDelete(bug.id)" class="btn btn-sm btn-danger">
+          Delete
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
