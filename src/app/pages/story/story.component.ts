@@ -93,4 +93,8 @@ export class StoryComponent implements OnInit {
     this.storyForm.reset();
     this.mode = PageMode.VIEW
   }
+
+  saveBtnEnabled() {
+    return this.storyForm.dirty;
+  }
 }

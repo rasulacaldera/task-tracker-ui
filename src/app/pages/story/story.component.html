@@ -24,7 +24,9 @@
       <option [ngValue]="'COMPLETED'">COMPLETED</option>
     </select>
   </form>
-  <button (click)="onSave()">{{ isCreateMode() ? "Create" : "Update" }}</button>
+  <button [disabled]="!saveBtnEnabled()" (click)="onSave()">
+    {{ isCreateMode() ? "Create" : "Update" }}
+  </button>
 </div>
 <table class="table">
   <thead>
