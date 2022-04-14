@@ -11,9 +11,7 @@ export class HomeComponent implements OnInit {
 
   weeklyPlanList: any = [];
 
-  constructor(
-    private planService: PlanService
-  ) { }
+  constructor(private planService: PlanService) { }
 
   ngOnInit(): void {
     this.loadweeklyPlan();

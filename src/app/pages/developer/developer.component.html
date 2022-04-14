@@ -1,1 +1,14 @@
-<p>developer works!</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let developer of developers">
+      <td>{{ developer.id }}</td>
+      <td>{{ developer.name }}</td>
+    </tr>
+  </tbody>
+</table>
