@@ -1,0 +1,28 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Assiged Developer</th>
+      <th scope="col">Estimation</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let story of stories">
+      <td>{{ story.id }}</td>
+      <td>{{ story.title }}</td>
+      <td>{{ story.description }}</td>
+      <td>
+        {{
+          story.assignedDeveloper ? story.assignedDeveloper.name : "Unassigned"
+        }}
+      </td>
+      <td>{{ story.estimation }}</td>
+      <td>{{ story.status }}</td>
+      <td><button (click)="onEnterUpdateMode(story)">Edit</button></td>
+      <td><button (click)="onDelete(story.id)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>

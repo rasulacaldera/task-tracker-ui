@@ -5,12 +5,14 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { HomeComponent } from './home/home.component';
 import { DeveloperComponent } from './developer/developer.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StoryComponent } from './story/story.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    DeveloperComponent
+    DeveloperComponent,
+    StoryComponent
   ],
   imports: [
     CommonModule,

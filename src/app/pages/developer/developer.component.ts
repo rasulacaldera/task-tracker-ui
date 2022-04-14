@@ -58,6 +58,7 @@ export class DeveloperComponent implements OnInit {
 
   onDelete(id: any) {
     this.developerService.deleteDeveloper(id).subscribe(res => {
+      this.notificationService.showSuccess("Successfully deleted Developer");
       this.loadAllDevelopers();
     }, err => {
       this.notificationService.showError(err.error.message)
