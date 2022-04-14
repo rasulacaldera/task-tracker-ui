@@ -14,6 +14,7 @@
       <tr *ngFor="let developer of developers">
         <td>{{ developer.id }}</td>
         <td>{{ developer.name }}</td>
+        <td><button (click)="onDelete(developer.id)">Delete</button></td>
       </tr>
     </tbody>
   </table>

@@ -30,4 +30,10 @@ export class DeveloperComponent implements OnInit {
       this.loadAllDevelopers();
     })
   }
+
+  onDelete(id: any) {
+    this.developerService.deleteDeveloper(id).subscribe(res => {
+      this.loadAllDevelopers();
+    })
+  }
 }

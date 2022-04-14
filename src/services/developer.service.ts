@@ -18,4 +18,8 @@ export class DeveloperService {
   createDeveloper(developer: any) {
     return this.http.post(this.DEVELOPER_SERVICE, developer);
   }
+
+  deleteDeveloper(id: any) {
+    return this.http.delete(this.DEVELOPER_SERVICE + "/" + id);
+  }
 }
