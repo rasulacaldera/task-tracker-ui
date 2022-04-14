@@ -1,34 +1,76 @@
-<button *ngIf="isViewMode()" (click)="onEnterCreateMode()">Create</button>
+<h3 class="mb-3">Story</h3>
+<button
+  *ngIf="isViewMode()"
+  (click)="onEnterCreateMode()"
+  class="btn btn-primary"
+>
+  Add New Story
+</button>
 <div *ngIf="!isViewMode()">
-  <form [formGroup]="storyForm">
-    <label for="title">Title: </label>
-    <input id="title" type="text" formControlName="title" />
+  <form [formGroup]="storyForm" class="row">
+    <div class="col-md-4">
+      <label for="title">Title: </label>
+      <input
+        id="title"
+        type="text"
+        formControlName="title"
+        class="form-control"
+      />
+    </div>
 
-    <label for="description">Description: </label>
-    <input id="description" type="text" formControlName="description" />
+    <div class="col-md-5">
+      <label for="description">Description: </label>
+      <input
+        id="description"
+        type="textarea"
+        formControlName="description"
+        class="form-control"
+      />
+    </div>
 
-    <label for="assignedDeveloperId">Assigned Developer: </label>
-    <select id="assignedDeveloperId" formControlName="assignedDeveloperId">
-      <option *ngFor="let developer of developers" [ngValue]="developer.id">
-        {{ developer.name }}
-      </option>
-    </select>
+    <div class="col-md-3">
+      <label for="assignedDeveloperId">Assigned Developer: </label>
+      <select
+        id="assignedDeveloperId"
+        formControlName="assignedDeveloperId"
+        class="form-control"
+      >
+        <option *ngFor="let developer of developers" [ngValue]="developer.id">
+          {{ developer.name }}
+        </option>
+      </select>
+    </div>
 
-    <label for="estimation">Estimation: </label>
-    <input id="estimation" type="number" formControlName="estimation" />
+    <div class="col-md-2">
+      <label for="estimation">Estimation: </label>
+      <input
+        id="estimation"
+        type="number"
+        formControlName="estimation"
+        class="form-control"
+      />
+    </div>
 
-    <label for="status" *ngIf="!isCreateMode()">Status: </label>
-    <select id="status" *ngIf="!isCreateMode()" formControlName="status">
-      <option [ngValue]="'NEW'">NEW</option>
-      <option [ngValue]="'ESTIMATED'">ESTIMATED</option>
-      <option [ngValue]="'COMPLETED'">COMPLETED</option>
-    </select>
+    <div class="col-md-2" *ngIf="!isCreateMode()">
+      <label for="status">Status: </label>
+      <select id="status" formControlName="status" class="form-control">
+        <option [ngValue]="'NEW'">NEW</option>
+        <option [ngValue]="'ESTIMATED'">ESTIMATED</option>
+        <option [ngValue]="'COMPLETED'">COMPLETED</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <button
+        [disabled]="!saveBtnEnabled()"
+        (click)="onSave()"
+        class="btn btn-primary save-btn-mt"
+      >
+        {{ isCreateMode() ? "Create" : "Update" }}
+      </button>
+    </div>
   </form>
-  <button [disabled]="!saveBtnEnabled()" (click)="onSave()">
-    {{ isCreateMode() ? "Create" : "Update" }}
-  </button>
 </div>
-<table class="table">
+<table class="table mt-3">
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -51,8 +93,16 @@
       </td>
       <td>{{ story.estimation }}</td>
       <td>{{ story.status }}</td>
-      <td><button (click)="onEnterUpdateMode(story)">Edit</button></td>
-      <td><button (click)="onDelete(story.id)">Delete</button></td>
+      <td>
+        <button (click)="onEnterUpdateMode(story)" class="btn btn-sm btn-info">
+          Edit
+        </button>
+      </td>
+      <td>
+        <button (click)="onDelete(story.id)" class="btn btn-sm btn-danger">
+          Delete
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
