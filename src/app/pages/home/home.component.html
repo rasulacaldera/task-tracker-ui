@@ -1,1 +1,27 @@
-<p>home works!</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Assiged Developer</th>
+      <th scope="col">Estimation</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let weeklyPlan of weeklyPlanList; let i = index">
+    <div>Week {{ i }}</div>
+    <tr *ngFor="let story of weeklyPlan.stories">
+      <td>{{ story.id }}</td>
+      <td>{{ story.title }}</td>
+      <td>{{ story.description }}</td>
+      <td>
+        {{
+          story.assignedDeveloper ? story.assignedDeveloper.name : "Unassigned"
+        }}
+      </td>
+      <td>{{ story.estimation }}</td>
+      <td>{{ story.status }}</td>
+    </tr>
+  </tbody>
+</table>

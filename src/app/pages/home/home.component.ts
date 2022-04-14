@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PlanService } from 'src/services/plan.service';
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  weeklyPlanList: any = [];
+
+  constructor(
+    private planService: PlanService
+  ) { }
 
   ngOnInit(): void {
+    this.loadweeklyPlan();
+  }
+
+  loadweeklyPlan() {
+    this.planService.getPlan().subscribe(res => {
+      this.weeklyPlanList = res
+    })
   }
 
 }

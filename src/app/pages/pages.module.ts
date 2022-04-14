@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { PagesRoutingModule } from './pages-routing.module';
 import { HomeComponent } from './home/home.component';
+import { DeveloperComponent } from './developer/developer.component';
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    DeveloperComponent
   ],
   imports: [
     CommonModule,
