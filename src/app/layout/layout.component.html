@@ -1,0 +1,31 @@
+<div class="l-navbar show" id="nav-bar">
+  <nav class="nav">
+    <div>
+      <a href="/" class="nav_logo">
+        <i class="bx bx-layer nav_logo-icon"></i>
+        <span class="nav_logo-name">Task Tracker</span>
+      </a>
+      <div class="nav_list">
+        <a href="/" class="nav_link active">
+          <fa-icon [icon]="faChartLine"></fa-icon>
+          <span class="nav_name">Dashboard</span>
+        </a>
+        <a href="/developer" class="nav_link">
+          <fa-icon [icon]="faUserAstronaut"></fa-icon>
+          <span class="nav_name">Developers</span>
+        </a>
+        <a href="/story" class="nav_link">
+          <fa-icon [icon]="faBook"></fa-icon>
+          <span class="nav_name">Stories</span>
+        </a>
+        <a href="/bug" class="nav_link">
+          <fa-icon [icon]="faBug"></fa-icon>
+          <span class="nav_name">Bugs</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+</div>
+<div class="height-100 pt-3">
+  <router-outlet></router-outlet>
+</div>

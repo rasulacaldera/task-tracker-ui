@@ -1,0 +1,35 @@
+<h3 class="mb-3">Current Weekly Plan</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" style="width: 5%">ID</th>
+      <th scope="col" style="width: 10%">Title</th>
+      <th scope="col" style="width: 25%">Description</th>
+      <th scope="col" style="width: 10%">Assigned Developer</th>
+      <th scope="col" style="width: 5%">Estimation</th>
+      <th scope="col" style="width: 5%">Status</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let weeklyPlan of weeklyPlanList; let i = index">
+    <tr>
+      <td colspan="6">
+        <div class="bg-light p-2 fw-bold">Week {{ i }}</div>
+      </td>
+    </tr>
+    <tr *ngFor="let story of weeklyPlan.stories">
+      <td>{{ story.id }}</td>
+      <td>{{ story.title }}</td>
+      <td>{{ story.description }}</td>
+      <td [ngClass]="{ 'text-secondary': !story.assignedDeveloper }">
+        {{
+          story.assignedDeveloper ? story.assignedDeveloper.name : "Unassigned"
+        }}
+      </td>
+      <td>{{ story.estimation }}</td>
+      <td>{{ story.status }}</td>
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="weeklyPlanList.length == 0" class="text-center no-dev-msg">
+  {{ errorMsg }}
+</div>
