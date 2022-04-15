@@ -3,6 +3,8 @@ import { FormControl } from '@angular/forms';
 import { DeveloperService } from 'src/services/developer.service';
 import { PageMode } from 'src/constants/page-mode';
 import { NotificationService } from 'src/services/notification.service';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-developer',
@@ -10,6 +12,9 @@ import { NotificationService } from 'src/services/notification.service';
   styleUrls: ['./developer.component.scss']
 })
 export class DeveloperComponent implements OnInit {
+
+  faEdit = faEdit;
+  faTrash = faTrash;
 
   developers: any = [];
   developerName = new FormControl('');

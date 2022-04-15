@@ -7,6 +7,7 @@ import { DeveloperComponent } from './developer/developer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoryComponent } from './story/story.component';
 import { BugComponent } from './bug/bug.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { BugComponent } from './bug/bug.component';
   imports: [
     CommonModule,
     PagesRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ]
 })
 export class PagesModule { }

@@ -4,8 +4,8 @@ import { PageMode } from 'src/constants/page-mode';
 import { BugService } from 'src/services/bug.service';
 import { DeveloperService } from 'src/services/developer.service';
 import { NotificationService } from 'src/services/notification.service';
-import { StoryService } from 'src/services/story.service';
 import Utils from 'src/utils/Utils';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-bug',
@@ -13,6 +13,9 @@ import Utils from 'src/utils/Utils';
   styleUrls: ['./bug.component.scss']
 })
 export class BugComponent implements OnInit {
+
+  faEdit = faEdit;
+  faTrash = faTrash;
 
   bugs: any = [];
   developers: any = [];

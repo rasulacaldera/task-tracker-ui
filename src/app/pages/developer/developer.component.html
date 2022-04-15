@@ -39,7 +39,7 @@
             (click)="onEnterUpdateMode(developer)"
             class="btn btn-sm btn-info"
           >
-            Edit
+            <fa-icon [icon]="faEdit" class="icon-mr"></fa-icon>Edit
           </button>
         </td>
         <td>
@@ -47,7 +47,7 @@
             (click)="onDelete(developer.id)"
             class="btn btn-sm btn-danger"
           >
-            Delete
+            <fa-icon [icon]="faTrash" class="icon-mr"></fa-icon>Delete
           </button>
         </td>
       </tr>

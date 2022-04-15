@@ -11,7 +11,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     LayoutComponent
   ],
   imports: [
-    CommonModule, RouterModule, FontAwesomeModule
+    CommonModule,
+    RouterModule,
+    FontAwesomeModule
   ]
 })
 export class LayoutModule { }
