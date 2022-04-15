@@ -81,7 +81,11 @@ export class DeveloperComponent implements OnInit {
   refreshAfterSave() {
     this.loadAllDevelopers();
     this.developerId = undefined;
-    this.developerName.setValue(undefined);
+    this.developerName.reset();
     this.mode = PageMode.VIEW
+  }
+
+  enableSave() {
+    return this.developerName.dirty;
   }
 }
