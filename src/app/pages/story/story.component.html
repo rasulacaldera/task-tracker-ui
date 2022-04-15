@@ -73,12 +73,12 @@
 <table class="table mt-3">
   <thead>
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Title</th>
-      <th scope="col">Description</th>
-      <th scope="col">Assigned Developer</th>
-      <th scope="col">Estimation</th>
-      <th scope="col">Status</th>
+      <th scope="col" style="width: 5%">ID</th>
+      <th scope="col" style="width: 10%">Title</th>
+      <th scope="col" style="width: 25%">Description</th>
+      <th scope="col" style="width: 10%">Assigned Developer</th>
+      <th scope="col" style="width: 5%">Estimation</th>
+      <th scope="col" style="width: 5%">Status</th>
     </tr>
   </thead>
   <tbody>
@@ -93,12 +93,12 @@
       </td>
       <td>{{ story.estimation }}</td>
       <td>{{ story.status }}</td>
-      <td>
+      <td style="width: 5%">
         <button (click)="onEnterUpdateMode(story)" class="btn btn-sm btn-info">
           <fa-icon [icon]="faEdit" class="icon-mr"></fa-icon>Edit
         </button>
       </td>
-      <td>
+      <td style="width: 5%">
         <button (click)="onDelete(story.id)" class="btn btn-sm btn-danger">
           <fa-icon [icon]="faTrash" class="icon-mr"></fa-icon>Delete
         </button>
