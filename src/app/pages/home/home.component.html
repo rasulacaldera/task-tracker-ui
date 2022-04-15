@@ -30,3 +30,6 @@
     </tr>
   </tbody>
 </table>
+<div *ngIf="weeklyPlanList.length == 0" class="text-center no-dev-msg">
+  {{ errorMsg }}
+</div>

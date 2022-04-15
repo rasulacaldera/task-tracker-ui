@@ -11,6 +11,7 @@ import { NotificationService } from 'src/services/notification.service';
 export class HomeComponent implements OnInit {
 
   weeklyPlanList: any = [];
+  errorMsg: string = '';
 
   constructor(private planService: PlanService,
     private notificationService: NotificationService) { }
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
     this.planService.getPlan().subscribe(res => {
       this.weeklyPlanList = res
     }, err => {
+      this.errorMsg = err.error.message;
       this.notificationService.showError(err.error.message)
     })
   }

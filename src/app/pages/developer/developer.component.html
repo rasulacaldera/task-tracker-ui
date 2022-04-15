@@ -54,5 +54,7 @@
     </tbody>
   </table>
 
-  <div class="text-center no-dev-msg">No developers found</div>
+  <div *ngIf="!developers" class="text-center no-dev-msg">
+    No developers found
+  </div>
 </div>
