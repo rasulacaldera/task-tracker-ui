@@ -20,7 +20,7 @@
       <td>{{ story.id }}</td>
       <td>{{ story.title }}</td>
       <td>{{ story.description }}</td>
-      <td>
+      <td [ngClass]="{ 'text-secondary': !story.assignedDeveloper }">
         {{
           story.assignedDeveloper ? story.assignedDeveloper.name : "Unassigned"
         }}
